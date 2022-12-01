@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-class CreateStock(BaseModel):
+class Stock(BaseModel):
     ls_cd : str
     ls_dt : str
     barcode : str

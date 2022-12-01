@@ -1,7 +1,8 @@
 from sqlalchemy.orm import Session
 import models, schemas
 
-def create_stock(db : Session, stock : schemas.CreateStock):
+# stock table insert
+def create_stock(db : Session, stock : schemas.Stock):
     db_stock = models.Stock(
         ls_cd = stock.ls_cd,
         ls_dt = stock.ls_dt,
@@ -13,3 +14,8 @@ def create_stock(db : Session, stock : schemas.CreateStock):
     db.commit()
     db.refresh(db_stock)
     return db_stock
+
+
+# stock table select
+def get_stock(db : Session, ls_cd = str):
+    return db.query(models.Stock).filter(models.Stock.ls_cd == ls_cd).first()
