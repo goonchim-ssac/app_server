@@ -34,14 +34,17 @@ def conn_check():
 # stock DB INPUT ls_cd ,ls_dt, barcode, ex_dt, ls_ct
 @app.post("/stock/", response_model=schemas.Stock)
 def create_stock(stock : schemas.Stock, db:Session = Depends(get_db)):
-    tb_check = crud.get_stock(db, stock.ls_cd)
+    tb_check = crud.get_stock_by_id(db, stock.ls_cd)
     if tb_check:
         raise HTTPException(status_code=400, detail="Stock already registered")
     return crud.create_stock(db, stock)
 
+@app.get("/stock/")
+def read_stock(db:Session = Depends(get_db)):
+    return crud.get_stocks(db)
 
 # recapture save
-@app.post("/save_badpicture", response_class=HTMLResponse)
+@app.post("/picture/", response_class=HTMLResponse)
 def save_badpicture(file:bytes = File()):
     # YYYY-MM-DD
     current_time = str(datetime.today().date())
