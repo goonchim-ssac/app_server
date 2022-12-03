@@ -40,7 +40,7 @@ def create_stock(stock : schemas.Stock, db:Session = Depends(get_db)):
     return crud.create_stock(db, stock)
 
 @app.get("/stock/")
-def read_stock(period_front:str, period_back:str, db:Session = Depends(get_db)):
+def read_stock(period_front:str="0000/01/01", period_back:str = "9999/12/31", db:Session = Depends(get_db)):
     return crud.get_stocks(db, period_front, period_back)
 
 # recapture save

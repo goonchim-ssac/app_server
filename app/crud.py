@@ -16,7 +16,7 @@ def create_stock(db : Session, stock : schemas.Stock):
     return db_stock
 
 # stock table select
-def get_stocks(db : Session, period_front: str='1900/01/01', period_back:str='9999/12/31'):
+def get_stocks(db : Session, period_front: str, period_back:str):
     return db.query(models.Stock).filter(models.Stock.ls_dt.between(period_front, period_back)).all()
 
 def get_stock_by_id(db : Session, ls_cd:str):
