@@ -34,5 +34,5 @@ def create_item(db : Session, item : schemas.Item):
     return db_item
 
 # item table select
-def get_stocks(db : Session, item_cd:str):
+def get_items(db : Session, item_cd:str):
     return db.query(models.Item).filter(models.Item.item_cd == item_cd).all()
