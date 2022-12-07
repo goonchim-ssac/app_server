@@ -34,8 +34,8 @@ def conn_check():
 # stock DB INPUT ls_cd ,ls_dt, barcode, ex_dt, ls_ct
 @app.post("/stock/", response_model=schemas.Stock)
 def create_stock(stock : schemas.Stock, db:Session = Depends(get_db)):
-    tb_check = crud.get_stock_by_id(db, stock.ls_cd)
-    if tb_check:
+    stock_check = crud.get_stock_by_id(db, stock.ls_cd)
+    if stock_check:
         raise HTTPException(status_code=400, detail="Stock already registered")
     return crud.create_stock(db, stock)
 
@@ -63,3 +63,15 @@ def save_badpicture(file:bytes = File()):
     SAVE_DIR = os.path.join(DATE_DIR, image_name)
     cv2.imwrite(f"{SAVE_DIR}.jpg", decoded)
     return Response('Save picture')
+
+
+@app.post("/item/", response_model=schemas.Item)
+def create_stock(item : schemas.Item, db:Session = Depends(get_db)):
+    item_check = crud.get_items(db, item.item_cd)
+    if item_check:
+        raise HTTPException(status_code=400, detail="This item already registered")
+    return crud.create_item(db, item)
+
+@app.get("/item/")
+def read_stock(barcode:str=None, db:Session = Depends(get_db)):
+    return crud.get_items(db, barcode)

@@ -17,10 +17,10 @@ class Stock(Base):
 class Item(Base):
     __tablename__ = "item"
     
-    item_cd = Column(String(50), primary_key=True)
+    item_cd = Column(String(13), primary_key=True) # =barcode
     item_nm = Column(String(100))
-    barcode = Column(String(13))
-    use_yn = Column(String(1))
+    item_cat_nm = Column(String(50))
+    item_maker = Column(String(50))
     
 class Deliver(Base):
     __tablename__ = "deliver"

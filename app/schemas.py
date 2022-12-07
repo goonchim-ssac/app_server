@@ -22,8 +22,8 @@ class Deliver(BaseModel):
 class Item(BaseModel):
     item_cd : str
     item_nm : str
-    barcode : str
-    use_yn : str
+    item_cat_nm : str
+    item_maker : str
     
     class Config:
         orm_mode = True

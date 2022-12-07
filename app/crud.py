@@ -25,8 +25,8 @@ def create_item(db : Session, item : schemas.Item):
     db_item = models.Item(
         item_cd = item.item_cd,
         item_nm = item.item_nm,
-        barcode = item.barcode,
-        use_yn = item.use_yn
+        item_cat_nm = item.item_cat_nm,
+        item_maker = item.item_maker
     )
     db.add(db_item)
     db.commit()
@@ -35,4 +35,7 @@ def create_item(db : Session, item : schemas.Item):
 
 # item table select
 def get_items(db : Session, item_cd:str):
-    return db.query(models.Item).filter(models.Item.item_cd == item_cd).all()
+    if item_cd == None:
+        return db.query(models.Item).all()
+    else:
+        return db.query(models.Item).filter(models.Item.item_cd == item_cd).all()
