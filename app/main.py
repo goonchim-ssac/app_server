@@ -75,3 +75,7 @@ def create_stock(item : schemas.Item, db:Session = Depends(get_db)):
 @app.get("/item/")
 def read_stock(barcode:str=None, db:Session = Depends(get_db)):
     return crud.get_items(db, barcode)
+
+@app.get("/ex_date/")
+def read_ex_date(today:str, ex_date:str, db:Session = Depends(get_db)):
+    return crud.get_ex_date(db, today, ex_date)

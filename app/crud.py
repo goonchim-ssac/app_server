@@ -39,3 +39,6 @@ def get_items(db : Session, item_cd:str):
         return db.query(models.Item).all()
     else:
         return db.query(models.Item).filter(models.Item.item_cd == item_cd).all()
+
+def get_ex_date(db : Session, today:str, ex_date : str):
+    return db.query(models.Stock).filter(models.Stock.ex_dt.between(today, ex_date)).order_by(models.Stock.ex_dt).all()
