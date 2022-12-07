@@ -61,3 +61,7 @@ def create_deliver(db : Session, deliver : schemas.Deliver):
 
 def get_deliver_by_id(db:Session, ld_cd : str):
     return db.query(models.Deliver).filter(models.Deliver.ld_cd == ld_cd).first()
+
+def get_delivers(db : Session, period_front: str, period_back:str):
+    return db.query(models.Deliver).filter(models.Deliver.ld_dt.between(period_front, period_back)).all()
+
