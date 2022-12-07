@@ -15,6 +15,9 @@ def create_stock(db : Session, stock : schemas.Stock):
     db.refresh(db_stock)
     return db_stock
 
+def get_stock_by_id(db:Session, ls_cd : str):
+    return db.query(models.Stock).filter(models.Stock.ls_cd == ls_cd).first()
+
 # stock table select
 def get_stocks(db : Session, period_front: str, period_back:str):
     return db.query(models.Stock).filter(models.Stock.ls_dt.between(period_front, period_back)).all()
@@ -42,3 +45,19 @@ def get_items(db : Session, item_cd:str):
 
 def get_ex_date(db : Session, today:str, ex_date : str):
     return db.query(models.Stock).filter(models.Stock.ex_dt.between(today, ex_date)).order_by(models.Stock.ex_dt).all()
+
+def create_deliver(db : Session, deliver : schemas.Deliver):
+    db_deliver = models.Deliver(
+        ld_cd = deliver.ld_cd,
+        ld_dt = deliver.ld_dt,
+        barcode = deliver.barcode,
+        ex_dt = deliver.ex_dt,
+        ld_ct = deliver.ld_ct
+        )
+    db.add(db_deliver)
+    db.commit()
+    db.refresh(db_deliver)
+    return db_deliver
+
+def get_deliver_by_id(db:Session, ld_cd : str):
+    return db.query(models.Deliver).filter(models.Deliver.ld_cd == ld_cd).first()

@@ -79,3 +79,10 @@ def read_stock(barcode:str=None, db:Session = Depends(get_db)):
 @app.get("/ex_date/")
 def read_ex_date(today:str, ex_date:str, db:Session = Depends(get_db)):
     return crud.get_ex_date(db, today, ex_date)
+
+@app.post("/deliver/", response_model=schemas.Deliver)
+def create_deliver(deliver : schemas.Deliver, db:Session = Depends(get_db)):
+    deliver_check = crud.get_deliver_by_id(db, deliver.ld_cd)
+    if deliver_check:
+        raise HTTPException(status_code=400, detail="Stock already registered")
+    return crud.create_deliver(db, deliver)
