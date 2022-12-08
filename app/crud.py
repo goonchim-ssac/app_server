@@ -20,7 +20,7 @@ def get_stock_by_id(db:Session, ls_cd : str):
 
 # stock table select
 def get_stocks(db : Session, period_front: str, period_back:str):
-    return db.query(models.Stock).filter(models.Stock.ls_dt.between(period_front, period_back)).all()
+    return db.query(models.Stock).filter(models.Stock.ls_dt.between(period_front, period_back)).order_by(models.Stock.ls_dt).all()
 
 
 # item table insert
@@ -63,5 +63,5 @@ def get_deliver_by_id(db:Session, ld_cd : str):
     return db.query(models.Deliver).filter(models.Deliver.ld_cd == ld_cd).first()
 
 def get_delivers(db : Session, period_front: str, period_back:str):
-    return db.query(models.Deliver).filter(models.Deliver.ld_dt.between(period_front, period_back)).all()
+    return db.query(models.Deliver).filter(models.Deliver.ld_dt.between(period_front, period_back)).order_by(models.Deliver.ld_dt).all()
 
