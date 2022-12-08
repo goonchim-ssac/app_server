@@ -19,8 +19,8 @@ class Item(Base):
     
     item_cd = Column(String(13), primary_key=True) # =barcode
     item_nm = Column(String(100))
-    item_cat_nm = Column(String(50))
-    item_maker = Column(String(50))
+    item_cat_nm = Column(String(100))
+    item_maker = Column(String(100))
     
 class Deliver(Base):
     __tablename__ = "deliver"
